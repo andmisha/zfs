@@ -117,8 +117,8 @@ pool01/zle  compressratio  1.04x     -
 Вывод - видимо файл не очень удачный для проверки сжатия, лучший результат показал алгоритм zle.
 
 ---
-21. Скачал архив с файлами https://drive.google.com/open?id=1KRBNW33QWqbvbVHa3hLJivOAt60yukkg и распаковал в /home/vagrant/zpoolexport
-22. Выполнил команду zpool import -d ${PWD}/zpoolexport/ как я понимаю для проверки импортируемого пула
+21. Скачать архив с файлами https://drive.google.com/open?id=1KRBNW33QWqbvbVHa3hLJivOAt60yukkg и распаковать в /home/vagrant/zpoolexport
+22. Выполнить команду zpool import -d ${PWD}/zpoolexport/ как я понимаю для проверки импортируемого пула
 ```
 [vagrant@server ~]$ sudo zpool import -d ${PWD}/zpoolexport/
    pool: otus
@@ -132,11 +132,11 @@ pool01/zle  compressratio  1.04x     -
             /home/vagrant/zpoolexport/filea  ONLINE
             /home/vagrant/zpoolexport/fileb  ONLINE
 ```            
-23. Выполнил импорт пула
+23. Выполнить импорт пула
 ```
 [vagrant@server ~]$ sudo zpool import -d ${PWD}/zpoolexport/ otus
 ```
-24. Проверил статус (так как я делал на 1ВМ, то статус выводится для ранее созданного пула)
+24. Проверить статус (так как я делал на 1ВМ, то статус выводится для ранее созданного пула)
 ```
 [vagrant@server ~]$ zpool status
   pool: otus
@@ -172,7 +172,7 @@ NAME     SIZE  ALLOC   FREE  CKPOINT  EXPANDSZ   FRAG    CAP  DEDUP    HEALTH  A
 otus     480M  2.09M   478M        -         -     0%     0%  1.00x    ONLINE  -
 pool01   960M   264K   960M        -         -     0%     0%  1.00x    ONLINE  -
 ```
-25. Командой zfs list вывел все файловые системы
+25. Командой zfs list вывести все файловые системы
 ```
 [vagrant@server ~]$ zfs list
 NAME             USED  AVAIL     REFER  MOUNTPOINT
@@ -181,4 +181,44 @@ otus/hometask2  1.88M   350M     1.88M  /otus/hometask2
 pool01           208K   832M     25.5K  /pool01
 pool01/zle        25K   832M       25K  /pool01/zle
 ```
-26. 
+26. Командой zfs вывел настройки пула - тип, recordsize, контрольную сумму, алгоритм сжатия и размер хранилища
+```
+[vagrant@server ~]$ sudo zfs get type,recordsize,checksum,compress,available otus/hometask2
+NAME            PROPERTY     VALUE       SOURCE
+otus/hometask2  type         filesystem  -
+otus/hometask2  recordsize   128K        inherited from otus
+otus/hometask2  checksum     sha256      inherited from otus
+otus/hometask2  compression  zle         inherited from otus
+otus/hometask2  available    350M        -
+```
+
+---
+27. Скачать файл https://drive.google.com/file/d/1gH8gCL9y7Nd5Ti3IRmplZPF1XjzxeRAG/view?usp=sharing и распаковать в /home/vagrant/
+28. Выполнить импорт снапшота
+```
+[vagrant@server ~]$ sudo zfs receive otus/storage/task2 < otus_task2.file
+```
+29. Вывести список всех снапшотов
+```
+[vagrant@server ~]$ zfs list -t snapshot
+NAME                 USED  AVAIL     REFER  MOUNTPOINT
+otus/storage@task2     0B      -     2.83M  -
+```
+30. Восстановить файлы из снапшота
+```
+[vagrant@server ~]$ sudo zfs rollback otus/storage@task2
+```
+31. Проверить содержимое директории
+```
+[vagrant@server ~]$ ls -l /otus/storage/task2
+total 2589
+-rw-r--r--. 1 root    root          0 May 15  2020 10M.file
+-rw-r--r--. 1 root    root     727040 May 15  2020 cinderella.tar
+-rw-r--r--. 1 root    root         65 May 15  2020 for_examaple.txt
+-rw-r--r--. 1 root    root          0 May 15  2020 homework4.txt
+-rw-r--r--. 1 root    root     309987 May 15  2020 Limbo.txt
+-rw-r--r--. 1 root    root     509836 May 15  2020 Moby_Dick.txt
+drwxr-xr-x. 3 vagrant vagrant       4 Dec 18  2017 task1
+-rw-r--r--. 1 root    root    1209374 May  6  2016 War_and_Peace.txt
+-rw-r--r--. 1 root    root     398635 May 15  2020 world.sql
+```
