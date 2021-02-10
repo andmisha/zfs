@@ -81,7 +81,7 @@ pool01/gzip  compressratio  1.00x     -
 ```
 [vagrant@server ~]$ sudo zfs destroy pool01/gzip
 ```
-15. Включили сжатие lz4
+15. Включить сжатие lz4
 ```
 [vagrant@server gzip]$ sudo zfs set compress=lz4 pool01/lz4
 ```
@@ -103,7 +103,7 @@ NAME         PROPERTY       VALUE     SOURCE
 pool01/lzjb  compression    lzjb      local
 pool01/lzjb  compressratio  1.00x     -   -
 ```
-19. Включили сжатие zle
+19. Включить сжатие zle
 ```
 [vagrant@server gzip]$ sudo zfs set compress=zle pool01/zle
 ```
