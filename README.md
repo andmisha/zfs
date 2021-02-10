@@ -48,14 +48,14 @@ errors: No known data errors
 ```
 [vagrant@server ~]$ sudo zfs create pool01/gzip
 ```
-10. Проверили, что файловая система создалась и примонтирована
+10. Проверить, что файловая система создалась и примонтирована
 ```
 [vagrant@server gzip]$ zfs get mounted
 NAME         PROPERTY  VALUE    SOURCE
 pool01       mounted   yes      -
 pool01/gzip  mounted   yes      -
 ```
-11. Скопировали файл Война и мир на нее и проверили, что скопировался
+11. Скопировать файл Война и мир на нее и проверить, что скопировался
 ```
 [vagrant@server ~]$ sudo cp War_and_Peace.txt /pool01/gzip/
 [vagrant@server ~]$ ls -l
@@ -66,11 +66,11 @@ total 0
 total 1
 -rw-r--r--. 1 root root 0 Feb 10 21:41 War_and_Peace.txt
 ```
-12. Включили сжатие gzip
+12. Включить сжатие gzip
 ```
 [vagrant@server gzip]$ sudo zfs set compress=gzip pool01/gzip
 ```
-13. Проверили коэффициент сжатия
+13. Проверить коэффициент сжатия
 ```
 [vagrant@server gzip]$ sudo zfs get compression,compressratio pool01/gzip
 NAME         PROPERTY       VALUE     SOURCE
@@ -85,18 +85,18 @@ pool01/gzip  compressratio  1.00x     -
 ```
 [vagrant@server gzip]$ sudo zfs set compress=lz4 pool01/lz4
 ```
-16. Проверили коэффициент сжатия
+16. Проверить коэффициент сжатия
 ```
 [vagrant@server ~]$ sudo zfs get compression,compressratio pool01/lz4
 NAME        PROPERTY       VALUE     SOURCE
 pool01/lz4  compression    lz4       local
 pool01/lz4  compressratio  1.00x     -
 ```
-17. Включили сжатие lzjb
+17. Включить сжатие lzjb
 ```
 [vagrant@server gzip]$ sudo zfs set compress=lzjb pool01/lzjb
 ```
-18. Проверили коэффициент сжатия
+18. Проверить коэффициент сжатия
 ```
 [vagrant@server ~]$ sudo zfs get compression,compressratio pool01/lzjb
 NAME         PROPERTY       VALUE     SOURCE
@@ -107,7 +107,7 @@ pool01/lzjb  compressratio  1.00x     -   -
 ```
 [vagrant@server gzip]$ sudo zfs set compress=zle pool01/zle
 ```
-20. Проверили коэффициент сжатия
+20. Проверить коэффициент сжатия
 ```
 [vagrant@server ~]$ sudo zfs get compression,compressratio pool01/zle
 NAME        PROPERTY       VALUE     SOURCE
