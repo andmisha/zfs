@@ -119,6 +119,7 @@ pool01/zle  compressratio  1.04x     -
 ---
 21. Скачал архив с файлами https://drive.google.com/open?id=1KRBNW33QWqbvbVHa3hLJivOAt60yukkg и распаковал в /home/vagrant/zpoolexport
 22. Выполнил команду zpool import -d ${PWD}/zpoolexport/ как я понимаю для проверки импортируемого пула
+```
 [vagrant@server ~]$ sudo zpool import -d ${PWD}/zpoolexport/
    pool: otus
      id: 6554193320433390805
@@ -130,10 +131,13 @@ pool01/zle  compressratio  1.04x     -
           mirror-0                           ONLINE
             /home/vagrant/zpoolexport/filea  ONLINE
             /home/vagrant/zpoolexport/fileb  ONLINE
-            
+```            
 23. Выполнил импорт пула
+```
 [vagrant@server ~]$ sudo zpool import -d ${PWD}/zpoolexport/ otus
+```
 24. Проверил статус (так как я делал на 1ВМ, то статус выводится для ранее созданного пула)
+```
 [vagrant@server ~]$ zpool status
   pool: otus
  state: ONLINE
@@ -160,15 +164,21 @@ config:
             sdc     ONLINE       0     0     0
 
 errors: No known data errors
+```
 и
+```
 [vagrant@server ~]$ zpool list
 NAME     SIZE  ALLOC   FREE  CKPOINT  EXPANDSZ   FRAG    CAP  DEDUP    HEALTH  ALTROOT
 otus     480M  2.09M   478M        -         -     0%     0%  1.00x    ONLINE  -
 pool01   960M   264K   960M        -         -     0%     0%  1.00x    ONLINE  -
+```
 25. Командой zfs list вывел все файловые системы
+```
 [vagrant@server ~]$ zfs list
 NAME             USED  AVAIL     REFER  MOUNTPOINT
 otus            2.04M   350M       24K  /otus
 otus/hometask2  1.88M   350M     1.88M  /otus/hometask2
 pool01           208K   832M     25.5K  /pool01
 pool01/zle        25K   832M       25K  /pool01/zle
+```
+26. 
