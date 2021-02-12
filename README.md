@@ -222,3 +222,15 @@ drwxr-xr-x. 3 vagrant vagrant       4 Dec 18  2017 task1
 -rw-r--r--. 1 root    root    1209374 May  6  2016 War_and_Peace.txt
 -rw-r--r--. 1 root    root     398635 May 15  2020 world.sql
 ```
+---
+
+32. С помощью команды find найти спрятанный файл secret_message 
+```
+[vagrant@server file_mess]$ find /otus -name secret_message
+/otus/storage/task1/file_mess/secret_message
+```
+33. С помощью команды cat прочитать его
+```
+[vagrant@server file_mess]$ cat /otus/storage/task1/file_mess/secret_message
+https://github.com/sindresorhus/awesome
+```
